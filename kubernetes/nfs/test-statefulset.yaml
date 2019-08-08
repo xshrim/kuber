@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: snginx
+    labels:
+        app: snginx
+spec:
+    replicas: 2
+    serviceName: snginx
+    selector:
+        matchLabels:
+            app: snginx
+    template:
+        metadata:
+            labels:
+                app: snginx
+        spec:
+            containers:
+              - name: nginx
+                image: nginx
+                ports:
+                  - containerPort: 80
+                volumeMounts:
+                  - name: www
+                    mountPath: /usr/share/nginx/html
+    volumeClaimTemplates:
+      - metadata:
+            name: www
+            annotations:
+                volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
+        spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+                requests:
+                    storage: 10Mi
+            storageClassName: managed-nfs-storage
