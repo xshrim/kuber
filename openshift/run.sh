@@ -20,7 +20,7 @@ sudo firewall-cmd --permanent --zone dockerc --add-port 8443/tcp
 sudo firewall-cmd --permanent --zone dockerc --add-port 53/udp
 sudo firewall-cmd --permanent --zone dockerc --add-port 8053/udp
 sudo firewall-cmd --reload
-# or sudo systemctl stop firewall-cmd
+# or sudo systemctl stop firewalld
 
 # set proxy
 mkdir -p /etc/systemd/system/docker.service.d
